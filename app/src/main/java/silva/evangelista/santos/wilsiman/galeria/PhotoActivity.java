@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toolbar;
 
 public class PhotoActivity extends AppCompatActivity {
+
+    String photoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,13 @@ public class PhotoActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         //Abaixo é habilitado o botão de voltar na ActionBar
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Intent i = getIntent();
+        photoPath = i.getStringExtra("photo_path");
+
+        Bitmap bitmap = Utils.getBitmap(photoPath);
+        ImageView imPhoto = findViewById(R.id.imPhoto);
+        imPhoto.setImageBitmap(bitmap);
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
