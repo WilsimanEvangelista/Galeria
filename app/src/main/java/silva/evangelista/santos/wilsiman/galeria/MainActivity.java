@@ -35,12 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
     static int RESULT_TAKE_PICTURE = 1;
 
+    static int RESULT_REQUEST_PERMISSION = 2;
+
     String currentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        List<String> permissions = new ArrayList<>();
+        permissions.add(Manifest.permission.CAMERA);
+
+        checkForPermissions(permissions);
 
         //Abaixo é obtido o elemento tbMain
         Toolbar toolbar = findViewById(R.id.tbMain);
@@ -89,6 +96,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void checkForPermissions(List<String> permissions) {
+        List<String> permissionsNotGranted = new ArrayList<>();
+
+        for (String permission : permissions) {
+            if (!hasPermission (permission)) {
+                permissionsNotGranted.add(permission);
+            }
+        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(permissionsNotGranted.size() > 0) {
+                requestPermissions(permissionsNotGranted.toArray(new String[permissionsNotGranted.size()]),RESULT_REQUEST_PERMISSION);
+            }
+        }
+    }
+
+    private boolean hasPermission(String permission) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return ActivityCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        final List<String> permissionsRejected = new ArrayList<>();
+        if (requestCode == RESULT_REQUEST_PERMISSION) {
+            for (String permission : permissions) {
+                if (!hasPermission(permission)) {
+                    permissionsRejected.add(permission);
+                }
+            }
+        }
+        if (permissionsRejected.size() > 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
+                    new AlertDialog.Builder(MainActivity.this).setMessage("Para usar essa app é preciso conceder essas permissões").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestPermissions(permissionsRejected.toArray(new String[permissionsRejected.size()]), RESULT_REQUEST_PERMISSION);
+                        }
+                    }).create().show();
+                }
+            }
+        }
+    }
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp;
