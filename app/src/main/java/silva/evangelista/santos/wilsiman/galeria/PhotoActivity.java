@@ -3,6 +3,7 @@ package silva.evangelista.santos.wilsiman.galeria;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
@@ -14,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toolbar;
 
 import java.io.File;
 
@@ -45,8 +45,7 @@ public class PhotoActivity extends AppCompatActivity {
         imPhoto.setImageBitmap(bitmap);
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {

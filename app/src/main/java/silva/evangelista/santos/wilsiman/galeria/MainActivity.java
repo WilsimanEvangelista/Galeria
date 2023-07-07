@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.Toolbar;
 import android.Manifest;
 
 import java.io.File;
@@ -171,8 +171,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
