@@ -1,4 +1,4 @@
-package silva.evangelista.santos.wilsiman.produtos.utils;
+package silva.evangelista.santos.wilsiman.galeria;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -3,14 +3,19 @@ package silva.evangelista.santos.wilsiman.galeria;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.Toolbar;
+import android.Manifest;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File[] files = dir.listFiles();
-        for (int i = 0, i < files.length; i++) {
+        for (int i = 0; i < files.length; i++) {
             photos.add(files[i].getAbsolutePath());
         }
 
@@ -191,6 +197,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void dispatchTakePictureIntent() {
-    }
 }
